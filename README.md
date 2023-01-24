@@ -1,6 +1,10 @@
-# Header
+# Jellyfin Service SysTray
 
-## Header 2
+SysTray Menu, Console and Servie Configurator
+
+## Screenshot
+
+<img src="https://raw.githubusercontent.com/GingerBreadInc/Jellyfin-Service-SysTray/main/Images/Overview.png" title="" alt="" data-align="center">
 
 ### Header 3
 
@@ -9,6 +13,3 @@
 ##### Header 5
 
 ###### Header 6
-
-<img src="https://raw.githubusercontent.com/GingerBreadInc/Jellyfin-Service-SysTray/main/Images/Overview.png" title="" alt="header" width="453">
-# Jellyfin-Service-SysTray
