@@ -12,13 +12,23 @@ SysTray, Service Configurator an Console
 
 ### SysTray Icon with Menu and Balloon Tips
 
-| SysTray Icon with Menu<br/>![](https://raw.githubusercontent.com/GingerBreadInc/Jellyfin-Service-SysTray/main/Images/SysTray.png) | Balloon Tips<br/>![](https://raw.githubusercontent.com/GingerBreadInc/Jellyfin-Service-SysTray/main/Images/SysTray_balloon.png) |
-| --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+##### SysTray Icon with Menu
+
+![](https://raw.githubusercontent.com/GingerBreadInc/Jellyfin-Service-SysTray/main/Images/SysTray.png)
+
+##### 
+
+##### Balloon Tips
+
+![](https://raw.githubusercontent.com/GingerBreadInc/Jellyfin-Service-SysTray/main/Images/SysTray_balloon.png)
+
 
 
 ### Service Configuration
 
 ![](https://raw.githubusercontent.com/GingerBreadInc/Jellyfin-Service-SysTray/main/Images/Config.png)
+
+
 
 ### Console
 
