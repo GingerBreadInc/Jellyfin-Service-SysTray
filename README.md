@@ -1,26 +1,26 @@
 # Jellyfin Service SysTray
 
-SysTray Menu, Console and Servie Configurator
+SysTray Menu, Console and Service Configurator
 
 ## Screenshot
 
-#### Overview
-
 <img src="https://raw.githubusercontent.com/GingerBreadInc/Jellyfin-Service-SysTray/main/Images/Overview.png" title="" alt="" data-align="center">
 
-#### SysTray Icon with Menu
+## Components
 
-![](https://raw.githubusercontent.com/GingerBreadInc/Jellyfin-Service-SysTray/main/Images/SysTray.png)
+SysTray, Service Configurator an Console
 
-#### Balloon Tips
+### SysTray Icon with Menu and Balloon Tips
 
-![](https://raw.githubusercontent.com/GingerBreadInc/Jellyfin-Service-SysTray/main/Images/SysTray_balloon.png)
+| SysTray Icon with Menu<br/>![](https://raw.githubusercontent.com/GingerBreadInc/Jellyfin-Service-SysTray/main/Images/SysTray.png) | Balloon Tips<br/>![](https://raw.githubusercontent.com/GingerBreadInc/Jellyfin-Service-SysTray/main/Images/SysTray_balloon.png) |
+| --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 
-#### Service Configuration
+
+### Service Configuration
 
 ![](https://raw.githubusercontent.com/GingerBreadInc/Jellyfin-Service-SysTray/main/Images/Config.png)
 
-#### Console
+### Console
 
 ![](https://raw.githubusercontent.com/GingerBreadInc/Jellyfin-Service-SysTray/main/Images/Console.png)
 
