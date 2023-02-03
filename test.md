@@ -1,10 +1,10 @@
 # Jellyfin Service Toolset
 
-Ursprünglich war der Gedanke, meiner Jellyfin Installation, ein Windows System Tray Icon zu spendieren, um den Dienst selbiger steuren zu können.
+Ursprünglich war der Gedanke, meiner Jellyfin Installation, ein Windows System Tray Icon zu spendieren, um den Dienst selbiger steuern zu können.
 
-Und wie es manchmal so ist, kommt eins zum anderen. Die Logs liesen sich immer nur schwer lesen, also baute ich dazu noch ein kleines Tool, welches die Logs farbig darstellen konnte und so Fehler und Warnungen auf einen Blick ersichtlich sind. Aus dem kleinen Logviewer wurde dann die "Console", mit der ich auch gleich den Dienst starten und stoppen konnte. Aber halt, wenn man schon mal dabei ist, kann man ja auch gleich noch ein paar nützliche Informationen einbauen. Und schon gab es den "Statistics" Button, klickt man auf ihn, öffnet sich ein kleines Panel mit Informationen rund um die Jellyfin Installation. Bestehend aus, Version, Dienst Status, CPU/RAM Benutzung, Größe des Data Verzeichnises und die Größen der einzelnen Bibliotheken (Filme, Serien,Music, usw.).
+Und wie es manchmal so ist, kommt eins zum anderen. Die Logs liesen sich immer nur schwer lesen, also baute ich dazu noch ein kleines Tool, welches die Logs farbig darstellen konnte und so Fehler und Warnungen auf einen Blick ersichtlich sind. Aus dem kleinen Logviewer wurde dann die "Console", mit der ich auch gleich den Dienst starten und stoppen konnte. Aber halt, wenn man schon mal dabei ist, kann man ja auch gleich noch ein paar nützliche Informationen einbauen. Und schon gab es den "Statistics" Button, klickt man auf ihn, öffnet sich ein kleines Panel mit Informationen rund um die Jellyfin Installation. Bestehend aus, Version, Dienst Status, CPU/RAM Benutzung, Größe des Data Verzeichnises und die Größen der einzelnen Bibliotheken (Filme, Serien, Music, usw.).
 
-Da es immer etwas umständlich war, dem Dienst die richtigen Berechtigungen zu erteilen, war die nächste Idee gebohren. Mit Hilfe des Konigurators, kann man nun, recht einfach, den Dienst entsprechend konfigurieren. Da es nicht dabei bleiben sollte, kamen noch ein paar Ideen dazu. Warum nicht gleich die ganze Konfiguration für das Toolset abdecken? Gesagt getan, Sprachauswahl für das Toolset, Angabe der Verzeichnisse für die Installation, Angabe des Service Accounts des Dienstes, samt Validierung, Dienst Installation/De-Installation und SysTray Icon mit der Windows Anmeldung starten.
+Da es immer etwas umständlich war, dem Dienst die richtigen Berechtigungen zu erteilen, war die nächste Idee gebohren. Mit Hilfe des Konigurators, kann man nun, recht einfach, den Dienst entsprechend konfigurieren. Da es nicht dabei bleiben sollte, kamen noch ein paar Ideen dazu. Warum nicht gleich die ganze Konfiguration für das Toolset abdecken? Gesagt getan, Sprachauswahl für das Toolset, Angabe der Verzeichnisse für die Installation, Angabe des Service Accounts des Dienstes, samt Validierung, Dienst Installation/De-Installation und das SysTray Icon mit der Windows Anmeldung starten.
 
 Aber moment, irgendwas hat noch gefehlt, warum nicht auch gleich auf eine neue Jellyfin Version prüfen? Und wenn wir schon dabei sind, warum auch nicht gleich noch einen Updater dazu erschaffen? Ok, also rundet nun auch noch ein Updater das Paket ab.
 
@@ -44,13 +44,21 @@ sollte aber unter jedem Windows mit PowerShell 5.1 laufen.
 
 #### Software
 
-Mal abgeshen von Jellyfin selbst, gibt es keine speziell zu installierende Software.
+Mal abgeshen von Jellyfin selbst, gibt es keine speziell zu installierende Software. PowerShell 5.1 ist bei jedem Windows ab Windows 10/Windows Server 2019 schon an Bord.
 
 Wichtig ist nur, das einmal der folgende Befehl, in einer administrativen Powershell Sitzung, ausgeführt werden muss. Das hat den Hintergrund, das Windows von Hause aus, das Ausführen von Powershell Scripten auf Windows Clients verbietet und somit auch das Toolset nicht ausgeführt werden kann.
 
 ```powershell
  Set-ExecutionPolicy RemoteSigned -Confirm:$false -Force
 ```
+
+Sollte es dennoch nicht funktionieren, muss noch folgender Befehl ausgeführt werden:
+
+```powershell
+Get-ChildItem -LiteralPath "C:\Jellyfin\Admin" -Recurse | Unblock-File -Confirm:$false
+```
+
+Das Verzeichnis ist aus dem folgenden Beispiel "Installation Jellyfin Server - Punkt 4"
 
 
 
@@ -72,7 +80,7 @@ Die einfachste Variante den Jellyfin Server zu installieren erkläre ich in den 
    
    In diesem legen wir gleich noch das ***Data*** Verzeichnis an.
 
-3.  Den Inhalt (ein Verzsichnis) des heruntergeladenen Archives in das gerade erstellte Verzeichnis entpacken und in "Server" umbenennen.
+3.  Den Inhalt (ein Verzsichnis) des heruntergeladenen Archives in das gerade erstellte Verzeichnis entpacken und in ***Server*** umbenennen.
 
 4. Das Toolset von hier aus den Releases herunterladen und wieder den Inhalt in unser erstelltes Verzeichnis entpacken.
    
@@ -113,6 +121,8 @@ Die einfachste Variante den Jellyfin Server zu installieren erkläre ich in den 
    http://127.0.0.1:8096/web/index.html#!/wizardstart.html
 
 6. Fertig, das wars schon.
+   
+   Optional kannst du im Konfigurator noch angeben, ob automatisch nach Updates gesucht werden soll, ob das SysTray Icon automatisch bei jedem Anmelden gestartet werden soll und den Pfad für den installierten Jellyfin Client, dazu aber mehr weiter unten.
 
 
 
@@ -132,7 +142,7 @@ Das Update ist recht einfach, es gibt hier zwei Möglichkeiten:
 
 ## Komponenten
 
-SysTray Menu, Service Configurator, Console and Updater
+An dieser Stelle gehe ich etwas genauer auf die einzelnen Komponenten ein
 
 ### SysTray Icon with Menu and Balloon Tips
 
