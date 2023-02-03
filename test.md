@@ -33,11 +33,8 @@ Um das Toolset nutzen zu können, gibt es keine speziellen Vorraussetzungen, au�
 getestet wurde unter:
 
 Windows 10 (22H2),
-
 Windows 11 (22H2),
-
 Windows Server 2019,
-
 Windows Server 2022
 
 sollte aber unter jedem Windows mit PowerShell 5.1 laufen.
@@ -59,6 +56,11 @@ Get-ChildItem -LiteralPath "C:\Jellyfin\Admin" -Recurse | Unblock-File -Confirm:
 ```
 
 Das Verzeichnis ist aus dem folgenden Beispiel "Installation Jellyfin Server - Punkt 4"
+
+
+
+*Noch eine Anmerkung zu den EXE-Dateien:
+Wem es nicht behagt aus dem Internet herunter geladenen EXE-Dateien auszuführen, was ich gut verstehen kann, der kann alternativ auch die RunXXXX.ps1 und die dazugehörigen RunXXXX.cmd Dateien aus diesem Repository verwenden, der Inhalt ist der gleiche, allerdings laufen sie unter dem PowerShell Prozess und nicht unter Ihrem jeweilig eigenen.*
 
 
 
@@ -99,7 +101,6 @@ Die einfachste Variante den Jellyfin Server zu installieren erkläre ich in den 
    *Im Bereich Basics*
    
    Data Verzeichnis: hier "C:\Jellyfin\Data" auswählen
-   
    Server Verzeichnis: hier "C:\Jellyfin\Server" auswählen
    
    *Im Bereich Service*
