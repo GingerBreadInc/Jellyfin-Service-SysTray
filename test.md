@@ -33,8 +33,11 @@ Um das Toolset nutzen zu können, gibt es keine speziellen Vorraussetzungen, au�
 getestet wurde unter:
 
 Windows 10 (22H2),
+
 Windows 11 (22H2),
+
 Windows Server 2019,
+
 Windows Server 2022
 
 sollte aber unter jedem Windows mit PowerShell 5.1 laufen.
@@ -98,12 +101,12 @@ Die einfachste Variante den Jellyfin Server zu installieren erkläre ich in den 
    
    Nach erfolgtem Start, musst du die folgenden Punkte zwingend ausfüllen:
    
-   *Im Bereich Basics*
+   ***Im Bereich Basics***
    
    Data Verzeichnis: hier "C:\Jellyfin\Data" auswählen
    Server Verzeichnis: hier "C:\Jellyfin\Server" auswählen
    
-   *Im Bereich Service*
+   ***Im Bereich Service***
    
    Hier hast du die Auswahl zwischen "Lokalem Dienstkonto" oder einem eigenen Dienstkonto.
    
@@ -124,6 +127,10 @@ Die einfachste Variante den Jellyfin Server zu installieren erkläre ich in den 
 6. Fertig, das wars schon.
    
    Optional kannst du im Konfigurator noch angeben, ob automatisch nach Updates gesucht werden soll, ob das SysTray Icon automatisch bei jedem Anmelden gestartet werden soll und den Pfad für den installierten Jellyfin Client, dazu aber mehr weiter unten.
+   
+   
+
+*Der Vorteil dieser Installationsvariante ist, man kann das Verzeichnis "C:\Jellyfin", jederzeit verschieben oder umbenennen. Einzige Vorraussetzung ist, man deinstalliert den Dienst vorher, was aber über den Konfigurator problemlos, schnell und ohne Datenverlust möglich ist und beendet alle Toolsetkomponentent. Nach dem Verschieben oder umbenennen, geht man einfach wie in Punkt 5 vor, allerdings braucht man den Konfigurationassistenten nicht noch einmal durchlaufen, sollte dieser bereits vorher einmal ausgeführt worden sein.*
 
 
 
