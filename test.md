@@ -1,20 +1,20 @@
-# Jellyfin Service Toolset
+# Jellyfin Service Toolkit
 
 Ursprünglich war der Gedanke, meiner Jellyfin Installation, ein Windows System Tray Icon zu spendieren, um den Dienst selbiger steuern zu können.
 
 Und wie es manchmal so ist, kommt eins zum anderen. Die Logs liesen sich immer nur schwer lesen, also baute ich dazu noch ein kleines Tool, welches die Logs farbig darstellen konnte und so Fehler und Warnungen auf einen Blick ersichtlich sind. Aus dem kleinen Logviewer wurde dann die "Console", mit der ich auch gleich den Dienst starten und stoppen konnte. Aber halt, wenn man schon mal dabei ist, kann man ja auch gleich noch ein paar nützliche Informationen einbauen. Und schon gab es den "Statistics" Button, klickt man auf ihn, öffnet sich ein kleines Panel mit Informationen rund um die Jellyfin Installation. Bestehend aus, Version, Dienst Status, CPU/RAM Benutzung, Größe des Data Verzeichnises und die Größen der einzelnen Bibliotheken (Filme, Serien, Music, usw.).
 
-Da es immer etwas umständlich war, dem Dienst die richtigen Berechtigungen zu erteilen, war die nächste Idee gebohren. Mit Hilfe des Konigurators, kann man nun, recht einfach, den Dienst entsprechend konfigurieren. Da es nicht dabei bleiben sollte, kamen noch ein paar Ideen dazu. Warum nicht gleich die ganze Konfiguration für das Toolset abdecken? Gesagt getan, Sprachauswahl für das Toolset, Angabe der Verzeichnisse für die Installation, Angabe des Service Accounts des Dienstes, samt Validierung, Dienst Installation/De-Installation und das SysTray Icon mit der Windows Anmeldung starten.
+Da es immer etwas umständlich war, dem Dienst die richtigen Berechtigungen zu erteilen, war die nächste Idee gebohren. Mit Hilfe des Konigurators, kann man nun, recht einfach, den Dienst entsprechend konfigurieren. Da es nicht dabei bleiben sollte, kamen noch ein paar Ideen dazu. Warum nicht gleich die ganze Konfiguration für das Toolkit abdecken? Gesagt getan, Sprachauswahl für das Toolkit, Angabe der Verzeichnisse für die Installation, Angabe des Service Accounts des Dienstes, samt Validierung, Dienst Installation/De-Installation und das SysTray Icon mit der Windows Anmeldung starten.
 
 Aber moment, irgendwas hat noch gefehlt, warum nicht auch gleich auf eine neue Jellyfin Version prüfen? Und wenn wir schon dabei sind, warum auch nicht gleich noch einen Updater dazu erschaffen? Ok, also rundet nun auch noch ein Updater das Paket ab.
 
-Ziel des Ganzen ist es, wie immer, dem Admin so viel Arbeit abzunhemen, wie es geht. Aus diesem Grund, ist das ganze Toolset recht einfach zu benutzen und nach möglichkeit ohne große Interaktion.
+Ziel des Ganzen ist es, wie immer, dem Admin so viel Arbeit abzunhemen, wie es geht und dem nicht ganz versierten Benutzer die Kongiuration zu erleichtern. Aus diesem Grund, ist das ganze Toolkit recht einfach zu benutzen und nach möglichkeit ohne große Interaktion.
 
 
 
 ## Inhalt
 
-Vorrausetzung Toolset
+Vorrausetzung Toolkit
 
 Installation Jellyfin Server
 
@@ -24,9 +24,9 @@ Komponenten des Toolsets
 
 
 
-## Vorrausetzung Toolset
+## Vorrausetzung Toolkit
 
-Um das Toolset nutzen zu können, gibt es keine speziellen Vorraussetzungen, außer die folgenden:
+Um das Toolkit nutzen zu können, gibt es keine speziellen Vorraussetzungen, außer die folgenden:
 
 #### Betriebssystem
 
@@ -46,7 +46,7 @@ sollte aber unter jedem Windows mit PowerShell 5.1 laufen.
 
 Mal abgeshen von Jellyfin selbst, gibt es keine speziell zu installierende Software. PowerShell 5.1 ist bei jedem Windows ab Windows 10/Windows Server 2019 schon an Bord.
 
-Wichtig ist nur, das einmal der folgende Befehl, in einer administrativen Powershell Sitzung, ausgeführt werden muss. Das hat den Hintergrund, das Windows von Hause aus, das Ausführen von Powershell Scripten auf Windows Clients verbietet und somit auch das Toolset nicht ausgeführt werden kann.
+Wichtig ist nur, das einmal der folgende Befehl, in einer administrativen Powershell Sitzung, ausgeführt werden muss. Das hat den Hintergrund, das Windows von Hause aus, das Ausführen von Powershell Scripten auf Windows Clients verbietet und somit auch das Toolkit nicht ausgeführt werden kann.
 
 ```powershell
  Set-ExecutionPolicy RemoteSigned -Confirm:$false -Force
@@ -62,10 +62,56 @@ Das Verzeichnis ist aus dem folgenden Beispiel "Installation Jellyfin Server - P
 
 
 
+#### Windows UAC / Administrative Rechte
+
+Das gesamt Toolkit ist so aufgebaut, das keine administrativen Rechte nötig sind, mit zwei Ausnahmen:
+
+1. Die Installation des Dienstes
+
+2. Das Entfernen des Dienstes
+
+Alles andere, wie zum Beispiel das Starten und Stoppen des Dienstes, funktioniert im jeweiligen Userkontext, da der "Konfigurator" die benötigten Rechte direkt auf den Dienst setzt.
+
+
+
 *Noch eine Anmerkung zu den EXE-Dateien:
 Wem es nicht behagt aus dem Internet herunter geladenen EXE-Dateien auszuführen, was ich gut verstehen kann, der kann alternativ auch die RunXXXX.ps1 und die dazugehörigen RunXXXX.cmd Dateien aus diesem Repository verwenden, der Inhalt ist der gleiche, allerdings laufen sie unter dem PowerShell Prozess und nicht unter Ihrem jeweilig eigenen.*
 
 
+
+#### Service Account
+
+Ein großes Rätsel ist immer wieder, wie bekommt man den Jellyfin-Dienst dazu auf ein NAS zuzugreifen und auch lesen und schreiben zu drüfen?
+
+Ich habe dazu einiges gelesen und sehr viel digitales stirnrunseln gesehen. Dabei ist die Lösung recht einfach. Es gibt zwei Varianten auf die ich jetzt kurz eingehe.
+
+**ActiveDirectory**
+
+Zum einen gibt es die Möglichkeit, sein NAS in ein Active Directory einzubinden (für Heimanwender ist das aber eher seltener der Fall). Das ist in meinen Augen die einfachste Variante. Hier muss lediglich ein User im AD angelegt werden, welcher auf dem NAS die entsprechenden Berechtigungen erhält. 
+
+1. User im AD anlegen
+
+2. Berechtigungen für den User auf der Freigabe erteilen
+
+3. Den AD User im "Konfigurator" angeben.
+
+**Lokaler User**
+
+Für Heimanwender ist ein lokaler Windows Benutzer allerdings die einzige Möglichkeit, um mit geringem Aufwand an seine mediale Sammlung zu gelangen. Deswegen hier eine kurze Anleitung, welche in Verbindung mit dem "Konfigurator", recht gut funktioniert. (Getestet mit Synology und TrueNAS)
+
+1. Auf dem NAS einen Benutzer anlegen, z.b. "JellyfinMedia"
+
+2. Auf dem NAS diesen Benutzer entsprechend auf der Freigabe berechtigen
+
+3. Im Windows einen Benutzer anlegen, der den selben Benutzernamen und das selbe Passwort hat.
+   
+   *Hier ist wichtig zu erwähnen, das dieser Benutzer ***nicht*** in die Gruppe "Lokale Administratoren" oder eine andere Gruppe aufgenommen werden muss, um die richtigen einzelnen Berechtigungen kümmert sich auch hier der "Konfigurator".* 
+
+4. Dieser Benutzer wird dann im "Konfigurator" angegeben.
+
+
+
+Ich habe recht oft gelesen, man solle doch das Lokale System Konto benutzen und auf dem NAS das Computerobject berechtigen. Prinzipiell mag das funktionieren, aber aus Sicherheitsgründen würde ich davon Abstand nehmen. Man lässt ja auch nicht alle Türen und Fenster offen stehen, nur damit der Briefträger die Post im Urlaub auf den Esszimmertisch legen kann. ;-)
 
 ## Installation Jellyfin Server
 
@@ -73,9 +119,9 @@ Die einfachste Variante den Jellyfin Server zu installieren erkläre ich in den 
 
 1. Download der Jellyfin Server Dateien
    
-   Um das Toolset vernüftig zu nutzen, empfehle ich das Combined Package, das gibts hier im Jellyfin Repo: [https://repo.jellyfin.org/releases/server/windows/versions/stable/combined](https://repo.jellyfin.org/releases/server/windows/versions/stable/combined/)
+   Um das Toolkit vernüftig zu nutzen, empfehle ich das Combined Package, das gibts hier im Jellyfin Repo: [https://repo.jellyfin.org/releases/server/windows/versions/stable/combined](https://repo.jellyfin.org/releases/server/windows/versions/stable/combined/)
 
-2. Anlegen eines Verzeichnisses, in dem am Ende, der Server, das Data und das Toolset Verzeichnis liegen
+2. Anlegen eines Verzeichnisses, in dem am Ende, das ***Server***, das ***Data*** und das ***Toolkit*** Verzeichnis liegen
    
    zum Beispiel:
    
@@ -85,7 +131,7 @@ Die einfachste Variante den Jellyfin Server zu installieren erkläre ich in den 
    
    In diesem legen wir gleich noch das ***Data*** Verzeichnis an.
 
-3.  Den Inhalt (ein Verzsichnis) des heruntergeladenen Archives in das gerade erstellte Verzeichnis entpacken und in ***Server*** umbenennen.
+3.  Den Inhalt (ein Verzsichnis), des heruntergeladenen Archivs, in das gerade erstellte Verzeichnis entpacken und in ***Server*** umbenennen.
 
 4. Das Toolset von hier aus den Releases herunterladen und wieder den Inhalt in unser erstelltes Verzeichnis entpacken.
    
@@ -103,8 +149,8 @@ Die einfachste Variante den Jellyfin Server zu installieren erkläre ich in den 
    
    ***Im Bereich Basics***
    
-   Data Verzeichnis: hier "C:\Jellyfin\Data" auswählen
-   Server Verzeichnis: hier "C:\Jellyfin\Server" auswählen
+   Data Verzeichnis: hier z.b. "C:\Jellyfin\Data" auswählen
+   Server Verzeichnis: hier z.b. "C:\Jellyfin\Server" auswählen
    
    ***Im Bereich Service***
    
@@ -114,11 +160,13 @@ Die einfachste Variante den Jellyfin Server zu installieren erkläre ich in den 
    
    Unterstützt werden hier lokale Konten, aber auch ActiveDirectory-Konten.
    
-   Solltest du dich für ein eigenes Dienst Konto entscheiden, trage die Kontodaten ein und klicke auf Account überprüfen.
+   Solltest du dich für ein eigenes Dienst Konto entscheiden, trage die Kontodaten ein und klicke auf Account überprüfen. (Vorraussetzung für das Dienstkonto siehe oben)
    
    Sollte alles richtig sein, kannst du nun auf "Speichern klicken."
    
    Jetzt fehlt nur noch der klick auf den grünen Button "Installieren".
+   
+   *Es erscheint die UAC für einen Powershell Prozess, das ist in Ordnung, denn für das Installieren des Dienstes sind Admin Rechte erforderlich.*
    
    Nachdem der Dienst installiert wurde, hast du gleich die Möglichkeit den Konfigurationsassistenten von Jellyfin selbst zu starten. Falls du dies später tun willst, öffne später einfach deinen Browser und gehe zu dieser URL:
    
@@ -130,17 +178,19 @@ Die einfachste Variante den Jellyfin Server zu installieren erkläre ich in den 
    
    
 
-*Der Vorteil dieser Installationsvariante ist, man kann das Verzeichnis "C:\Jellyfin", jederzeit verschieben oder umbenennen. Einzige Vorraussetzung ist, man deinstalliert den Dienst vorher, was aber über den Konfigurator problemlos, schnell und ohne Datenverlust möglich ist und beendet alle Toolsetkomponentent. Nach dem Verschieben oder umbenennen, geht man einfach wie in Punkt 5 vor, allerdings braucht man den Konfigurationassistenten nicht noch einmal durchlaufen, sollte dieser bereits vorher einmal ausgeführt worden sein.*
+*Der Vorteil dieser Installationsvariante ist, man kann das Verzeichnis "C:\Jellyfin", jederzeit verschieben oder umbenennen. Einzige Vorraussetzung ist, man deinstalliert den Dienst vorher, was aber über den Konfigurator problemlos, schnell und ohne Datenverlust möglich ist und beendet alle Toolkitkomponentent (SysTray, Console, Configurator, Updater). Nach dem Verschieben oder umbenennen, geht man einfach wie in Punkt 5 vor, allerdings braucht man den Konfigurationassistenten nicht noch einmal durchlaufen, sollte dieser bereits vorher einmal ausgeführt worden sein.*
 
 
 
 ## Update Jellyfin Server
 
-Das Update ist recht einfach, es gibt hier zwei Möglichkeiten:
+Das Update ist recht einfach, es gibt hier drei Möglichkeiten:
 
-1. Du startest im "C:\Jellyfin\Admin" Verzeichnis die "Jellyfin.Update.exe" und klickst auf "Update installieren", wenn ein neue Version verfügbar ist.
+1. Möglichkeit: Du gehst wie oben im "Installation Jellyfin Server" - Punkt 1 und 3 vor und ersetzt das aktuelle Server Verzeichnis.
 
-2. Du aktivierst im "Konfigurator" einfach "auf Updates prüfen". So kannst du dann direkt über das SysTray Menü den Updater starten, sobald eine neue Version vorliegt.
+2. Möglichkeit: Du startest im "C:\Jellyfin\Admin" Verzeichnis die "Jellyfin.Update.exe" und klickst auf "Update installieren", wenn eine neue Version verfügbar ist.
+
+3. Möglichkeit: Du aktivierst im "Konfigurator" einfach "auf Updates prüfen". So kannst du dann direkt über das SysTray Menü den Updater starten, sobald eine neue Version vorliegt.
    
    
 
