@@ -30,7 +30,7 @@ Sprachen
 
 Komponenten des Toolkit
 
-
+Screenshots
 
 ## Vorrausetzung Toolkit
 
@@ -270,6 +270,44 @@ Und das geht so:
    5. Icon im oben genannten Ordner ablegen
       
       Die Icons werden dann ebenfalls automatisch zum enstprechenden Eintrag in den jewiligen Sprach-Auswahlmenüs angezeigt, falls nicht "Console"" oder "Konfigurator"" einfach neustarten.
+
+
+
+## Komponenten des Toolkits
+
+Das Toolkit besteht aus den Komponenten "SysTray", "Console", "Updater" und "Konfigurator", im folgenden ein paar Worte dazu.
+
+#### SysTray
+
+Die Komponente die alles ins Rollen brachte.
+
+Wie der Name schon sagt, lässt sich der Dienst damit über den SysTray von Windows steueren, aber das Icon kann auch ein klein wenig mehr.
+
+hier der Aufbau (von oben nach unten)
+
+- Jellyfin Media Server - Öffnet die Weboberfläche bzw. den Jellyfin Media Client (Wenn das Client Verzeichnis im Konfigurator angegeben wurde)
+
+- Dienst Starten - Startet den Dienst, sofern installiert und noch nicht gestartet
+
+- Dienst neustarten - Startet den Dienst neu, sofern installiert und nicht gestoppt
+
+- Dienst Stoppen - Stoppt den Dienst, sofern installiert und nicht gestoppt
+
+- Konsole - Öffnet die "Console"
+
+- Konfigurator - Öffnet den "Konfigurator"
+
+- Update Verfügbar - Wird angezeigt, wenn "auf Updates prüfen" aktiviert und eine neue Version verfügbar ist
+
+- Beenden - beendet den Jellyfin SysTray
+
+- Doppelklick auf das SysTray Icon - Öffnet die "Console"
+
+Als weiteres Feature verfügt SysTray auch über "Ballootips". Diese erscheinen, wenn der Dienst seinen Status ändert (gestartet, gestoppt, unbekannt) und auch, sofern "auf Updates prüfen" aktiviert ist, wenn eine neue Version verfügbar ist.
+
+#### Console
+
+Die Console dient als eine Art kleines Informationszentrum. Primär zeigt sie das Logfile in Echtzeit und stellt die einzelen Warnstufen in verschiedenen Farben dar, damit wird es übersichtlicher und man hat alles schnell im Blick.
 
 ## Screenshot
 
