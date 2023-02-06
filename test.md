@@ -10,6 +10,12 @@ Aber moment, irgendwas hat noch gefehlt, warum nicht auch gleich auf eine neue J
 
 Ziel des Ganzen ist es, wie immer, dem Admin so viel Arbeit abzunhemen, wie es geht und dem nicht ganz versierten Benutzer die Kongiuration zu erleichtern. Aus diesem Grund, ist das ganze Toolkit recht einfach zu benutzen und nach möglichkeit ohne große Interaktion.
 
+Aber: Es wird keine Haftung für jedweder Art von Schäden Übernommen, ob seelig, körperlich oder materiell.
+
+Da das ganze ein reines Freizeit-Projekt ist, stelle ich das Toolkit, so wie es ist zur Verfügung, ohne Garantie auf Erweiterungen oder Verbesserungen, bin aber immer für konstruktive Kritik oder Verbesserungsvorschläge offen.
+
+So genug der vielen Worte, nun zum Eigentlichen. ;-)
+
 
 
 ## Inhalt
@@ -20,7 +26,9 @@ Installation Jellyfin Server
 
 Update Jellyfin Server
 
-Komponenten des Toolsets
+Sprachen
+
+Komponenten des Toolkit
 
 
 
@@ -44,9 +52,15 @@ sollte aber unter jedem Windows mit PowerShell 5.1 laufen.
 
 #### Software
 
-Mal abgeshen von Jellyfin selbst, gibt es keine speziell zu installierende Software. PowerShell 5.1 ist bei jedem Windows ab Windows 10/Windows Server 2019 schon an Bord.
+Mal abgeshen von Jellyfin selbst, gibt es keine speziell zu installierende Software.
 
-Wichtig ist nur, das einmal der folgende Befehl, in einer administrativen Powershell Sitzung, ausgeführt werden muss. Das hat den Hintergrund, das Windows von Hause aus, das Ausführen von Powershell Scripten auf Windows Clients verbietet und somit auch das Toolkit nicht ausgeführt werden kann.
+Das gesamte Toolkit habe ich in Powershell geschrieben und die Kompatibilität veruscht so groß wie Möglich zu halten.
+
+Aber das Gute: PowerShell 5.1 ist bei jedem Windows ab Windows 10/Windows Server 2019 schon an Bord.
+
+***Wichtig ist nur, das einmal der folgende Befehl, in einer administrativen Powershell Sitzung, ausgeführt werden muss.***
+
+Das hat den Hintergrund, das Windows von Hause aus, das Ausführen von Powershell Scripten auf Windows Clients verbietet und somit auch das Toolkit nicht ausgeführt werden kann.
 
 ```powershell
  Set-ExecutionPolicy RemoteSigned -Confirm:$false -Force
@@ -58,19 +72,19 @@ Sollte es dennoch nicht funktionieren, muss noch folgender Befehl ausgeführt we
 Get-ChildItem -LiteralPath "C:\Jellyfin\Admin" -Recurse | Unblock-File -Confirm:$false
 ```
 
-Das Verzeichnis ist aus dem folgenden Beispiel "Installation Jellyfin Server - Punkt 4"
+Das Verzeichnis ist aus dem folgenden Beispiel entnommen: "Installation Jellyfin Server - Punkt 5"
 
 
 
 #### Windows UAC / Administrative Rechte
 
-Das gesamt Toolkit ist so aufgebaut, das keine administrativen Rechte nötig sind, mit zwei Ausnahmen:
+Das gesamte Toolkit ist so aufgebaut, das keine administrativen Rechte nötig sind, mit zwei Ausnahmen:
 
 1. Die Installation des Dienstes
 
 2. Das Entfernen des Dienstes
 
-Alles andere, wie zum Beispiel das Starten und Stoppen des Dienstes, funktioniert im jeweiligen Userkontext, da der "Konfigurator" die benötigten Rechte direkt auf den Dienst setzt.
+Alles andere, wie zum Beispiel das Starten und Stoppen des Dienstes, funktioniert im jeweiligen Userkontext (des Benutzers, welcher den Dienst Installiert hat), da der "Konfigurator" die benötigten Rechte direkt auf den Dienst setzt.
 
 
 
@@ -81,7 +95,7 @@ Wem es nicht behagt aus dem Internet herunter geladenen EXE-Dateien auszuführen
 
 #### Service Account
 
-Ein großes Rätsel ist immer wieder, wie bekommt man den Jellyfin-Dienst dazu auf ein NAS zuzugreifen und auch lesen und schreiben zu drüfen?
+Ein großes Rätsel ist immer wieder, wie bekommt man den Jellyfin-Dienst dazu auf ein NAS zuzugreifen und auch wirklich lesen und schreiben zu drüfen?
 
 Ich habe dazu einiges gelesen und sehr viel digitales stirnrunseln gesehen. Dabei ist die Lösung recht einfach. Es gibt zwei Varianten auf die ich jetzt kurz eingehe.
 
@@ -111,7 +125,7 @@ Für Heimanwender ist ein lokaler Windows Benutzer allerdings die einzige Mögli
 
 
 
-Ich habe recht oft gelesen, man solle doch das Lokale System Konto benutzen und auf dem NAS das Computerobject berechtigen. Prinzipiell mag das funktionieren, aber aus Sicherheitsgründen würde ich davon Abstand nehmen. Man lässt ja auch nicht alle Türen und Fenster offen stehen, nur damit der Briefträger die Post im Urlaub auf den Esszimmertisch legen kann. ;-)
+Ich habe recht oft gelesen, man solle doch das Lokale System Konto benutzen und auf dem NAS das Computerobject berechtigen. Prinzipiell mag das funktionieren, aber aus Sicherheitsgründen würde ich davon Abstand nehmen, genau wie einem Dienstkonto-Benutzer Administrator-Rechte zu verleihen. Man lässt ja auch nicht alle Türen und Fenster offen stehen, nur damit der Briefträger die Post im Urlaub auf den Esszimmertisch legen kann. ;-)
 
 ## Installation Jellyfin Server
 
@@ -128,12 +142,12 @@ Die einfachste Variante den Jellyfin Server zu installieren erkläre ich in den 
    ```powershell
    C:\Jellyfin
    ```
-   
-   In diesem legen wir gleich noch das ***Data*** Verzeichnis an.
 
-3.  Den Inhalt (ein Verzsichnis), des heruntergeladenen Archivs, in das gerade erstellte Verzeichnis entpacken und in ***Server*** umbenennen.
+3. In diesem legen wir gleich noch das ***Data*** Verzeichnis an.
 
-4. Das Toolset von hier aus den Releases herunterladen und wieder den Inhalt in unser erstelltes Verzeichnis entpacken.
+4. Den Inhalt (ein Verzsichnis), des heruntergeladenen Archivs, in das gerade erstellte Verzeichnis entpacken und in ***Server*** umbenennen.
+
+5. Das Toolkit von hier aus den Releases herunterladen und wieder den Inhalt in unser erstelltes Verzeichnis entpacken.
    
    Jetzt müsste es darin so aussehen:
    
@@ -143,13 +157,14 @@ Die einfachste Variante den Jellyfin Server zu installieren erkläre ich in den 
    C:\Jellyfin\Server
    ```
 
-5. Im Verzeichnis Admin nun die "Jellyfin.Config.exe" starten
+6. Im Verzeichnis Admin nun die "Jellyfin.Config.exe" starten
    
    Nach erfolgtem Start, musst du die folgenden Punkte zwingend ausfüllen:
    
    ***Im Bereich Basics***
    
    Data Verzeichnis: hier z.b. "C:\Jellyfin\Data" auswählen
+   
    Server Verzeichnis: hier z.b. "C:\Jellyfin\Server" auswählen
    
    ***Im Bereich Service***
@@ -172,7 +187,7 @@ Die einfachste Variante den Jellyfin Server zu installieren erkläre ich in den 
    
    http://127.0.0.1:8096/web/index.html#!/wizardstart.html
 
-6. Fertig, das wars schon.
+7. Fertig, das wars schon.
    
    Optional kannst du im Konfigurator noch angeben, ob automatisch nach Updates gesucht werden soll, ob das SysTray Icon automatisch bei jedem Anmelden gestartet werden soll und den Pfad für den installierten Jellyfin Client, dazu aber mehr weiter unten.
    
@@ -193,6 +208,68 @@ Das Update ist recht einfach, es gibt hier drei Möglichkeiten:
 3. Möglichkeit: Du aktivierst im "Konfigurator" einfach "auf Updates prüfen". So kannst du dann direkt über das SysTray Menü den Updater starten, sobald eine neue Version vorliegt.
    
    
+
+## Sprachen
+
+Das Toolkit kann in verschiedene Sprachen übersetzt werden, aktuell unterstützt werden Deutsch und Englisch.
+
+Die Erweiterung ist ebenfalls recht einfach, dazu muss lediglich die Datei "Languages.ps1" geöffnet und bearteitet werden.
+
+Und das geht so:
+
+1. Die Datei "C:\Jellyfin\Admin\Core\Languages.ps1" in einem passenden Editor (z.b. Notepad++) öffen
+
+2. einen bereits vorhandenen Sprachblock kopieren und am Ende einsetzen
+
+3. die einzelnen Variablen enstprechend ausfüllen
+   
+   Wichtig ist jedoch, das der passende Language Code angegeben wird (Beispiele für Deutsch und Englisch):
+   
+   ```powershell
+   # Englisch:
+   $Language = "en-US"
+   
+   # German:
+   $Language = "de-DE"
+   ```
+
+4. Noch eine Besonderheit ist die Angabe der "Performance Counter Namen" für "Prozess" und "Prozessorzeit", diese sind von der Betriebssystem-Sprache abhängig (Warum auch immer sich Microsoft dafür entschieden hat).
+   
+   Hier die Beispiele für Deutsch und Englisch:
+   
+   ```powershell
+   # English
+   $Texts[$Language]["ConfigCPUTimeString"] = "% Processor Time"
+   $Texts[$Language]["ConfigProcessString"] = "Process"
+   
+   # German
+   $Texts[$Language]["ConfigCPUTimeString"] = "Prozessorzeit (%)"
+   $Texts[$Language]["ConfigProcessString"] = "Prozess"
+   ```
+
+5. Datei speichern, die Änderungen werden sofort wirksam.
+
+6. Die Sprache kann direkt im "Konfigurator" oder in der "Console" gesetzt werden und werden dann auch gleich auf alle Komponenten des Toolkits angewendet.
+   
+   Noch ein Hinweis zu den Icons, diese befinden sich unter "C:\Jellyfin\Admin\Icons\Languages".
+   
+   Einige der gängigen Sprach-Icons habe ich breits abgelegt, sollten noch weitere benötigt werden, können diese hier herunter geladen werden:
+   
+   [https://iconarchive.com/show/flag-icons-by-gosquared.1.html](https://iconarchive.com/show/flag-icons-by-gosquared.1.html)
+   
+   Wichtig für den Download:
+   
+   1. Auf die entsprechende Flagge klicken
+   
+   2. "All Download Formats" auswählen
+   
+   3. Auf "Windows: Download ICO" klicken
+   
+   4. Das heruntergeladene Icon umbennen, z.b. für deutsch in "de-DE.ico"
+   
+   5. Icon im oben genannten Ordner ablegen
+      
+      Die Icons werden dann ebenfalls automatisch zum enstprechenden Eintrag in den jewiligen Sprach-Auswahlmenüs angezeigt, falls nicht "Console"" oder "Konfigurator"" einfach neustarten.
 
 ## Screenshot
 
