@@ -277,7 +277,7 @@ Und das geht so:
 
 Das Toolkit besteht aus den Komponenten "SysTray", "Console", "Updater" und "Konfigurator", im folgenden ein paar Worte dazu.
 
-#### SysTray
+### SysTray
 
 Die Komponente die alles ins Rollen brachte.
 
@@ -305,7 +305,7 @@ hier der Aufbau (von oben nach unten)
 
 Als weiteres Feature verfügt SysTray auch über "Ballootips". Diese erscheinen, wenn der Dienst seinen Status ändert (gestartet, gestoppt, unbekannt) und auch, sofern "auf Updates prüfen" aktiviert ist, wenn eine neue Version verfügbar ist.
 
-#### Console
+### Console
 
 Die Console dient als eine Art kleines Informationszentrum. Primär zeigt sie das Logfile in Echtzeit und stellt die einzelen Warnstufen in verschiedenen Farben dar, damit wird es übersichtlicher und man hat alles schnell im Blick.
 
